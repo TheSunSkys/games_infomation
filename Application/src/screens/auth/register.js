@@ -5,7 +5,7 @@ import {useForm, Controller} from 'react-hook-form';
 import Icon from 'react-native-vector-icons/Entypo';
 import {useNavigation} from '@react-navigation/native';
 
-import {EMAIL_REGEX} from '../../utils/validateInput';
+import {EMAIL_REGEX} from '@utils/validateInput';
 
 const RegisterScreen = () => {
   const navigation = useNavigation();

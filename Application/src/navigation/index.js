@@ -5,10 +5,9 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {AuthContext} from './auth';
 import TabNavigate from './TabNavigation';
-import HomeScreen from '../screens/home';
-import SplashScreen from '../screens/splash';
-import LoginScreen from '../screens/auth/login';
-import RegisterScreen from '../screens/auth/register';
+import SplashScreen from '@screens/splash';
+import LoginScreen from '@screens/auth/login';
+import RegisterScreen from '@screens/auth/register';
 
 const Stack = createNativeStackNavigator();
 
@@ -76,7 +75,8 @@ const Navigation = () => {
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          initialRouteName={state && state.userToken && 'InitScreen'}>
           {state && state.isLoading ? (
             <Stack.Group screenOptions={{headerShown: false}}>
               <Stack.Screen name="Splash" component={SplashScreen} />
@@ -112,7 +112,7 @@ const Navigation = () => {
                 headerShown: false,
                 animation: 'slide_from_right',
               }}>
-              <Stack.Screen name="Home" component={TabNavigate} />
+              <Stack.Screen name="InitScreen" component={TabNavigate} />
             </Stack.Group>
           )}
         </Stack.Navigator>
