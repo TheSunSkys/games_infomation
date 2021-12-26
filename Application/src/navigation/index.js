@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {AuthContext} from './auth';
+import TabNavigate from './TabNavigation';
 import HomeScreen from '../screens/home';
 import SplashScreen from '../screens/splash';
 import LoginScreen from '../screens/auth/login';
@@ -111,7 +112,7 @@ const Navigation = () => {
                 headerShown: false,
                 animation: 'slide_from_right',
               }}>
-              <Stack.Screen name="Home" component={HomeScreen} />
+              <Stack.Screen name="Home" component={TabNavigate} />
             </Stack.Group>
           )}
         </Stack.Navigator>
