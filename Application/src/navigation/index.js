@@ -2,6 +2,7 @@ import React, {useEffect, useMemo, useReducer} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {AuthContext} from './auth';
 import TabNavigate from './TabNavigation';
@@ -45,7 +46,9 @@ const Navigation = () => {
   const authContext = useMemo(
     () => ({
       signIn: async data => {
-        dispatch({type: 'SIGN_IN', token: 'dummy-auth-token'});
+        const token = 'dummy-auth-token';
+        AsyncStorage.setItem('TOKEN', token);
+        dispatch({type: 'SIGN_IN', token: token});
       },
       signOut: () => dispatch({type: 'SIGN_OUT'}),
       signUp: async data => {
@@ -58,11 +61,11 @@ const Navigation = () => {
   useEffect(() => {
     const bootstrapAsync = async () => {
       let userToken = null;
-
       try {
-        // userToken = await SecureStore.getItemAsync('userToken');
+        userToken = await AsyncStorage.getItem('TOKEN');
       } catch (e) {
         // Restoring token failed
+        dispatch({type: 'SIGN_OUT'});
       }
       setTimeout(() => {
         dispatch({type: 'RESTORE_TOKEN', token: userToken});
