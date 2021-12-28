@@ -13,4 +13,5 @@ export const clientNews = {
     getSteamNews: () => clientInstanceNews.get(`/search?q=game steam&lang=en&max=10&token=${TOKEN}`),
     getEpicNews: () => clientInstanceNews.get(`/search?q=game epic&lang=en&max=10&token=${TOKEN}`),
     getOtherNews: () => clientInstanceNews.get(`/search?q=mobile game&lang=en&max=10&token=${TOKEN}`),
+    
 };
