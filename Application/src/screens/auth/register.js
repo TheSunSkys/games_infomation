@@ -1,18 +1,18 @@
 import React from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {Button, Input} from 'react-native-elements';
-import {useForm, Controller} from 'react-hook-form';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Button, Input } from 'react-native-elements';
+import { useForm, Controller } from 'react-hook-form';
 import Icon from 'react-native-vector-icons/Entypo';
-import {useNavigation} from '@react-navigation/native';
-
-import {EMAIL_REGEX} from '@utils/validateInput';
+import { useNavigation } from '@react-navigation/native';
+import Header from '@components/Header';
+import { EMAIL_REGEX } from '@utils/validateInput';
 
 const RegisterScreen = () => {
   const navigation = useNavigation();
   const {
     handleSubmit,
     control,
-    formState: {errors},
+    formState: { errors },
     getValues,
   } = useForm({
     defaultValues: {
@@ -29,13 +29,7 @@ const RegisterScreen = () => {
 
   return (
     <View style={styles.viewContainer}>
-      <View style={styles.headerStyle}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="chevron-thin-left" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.textHeaderStyle}>Register</Text>
-        <View></View>
-      </View>
+      <Header title={'Register'} />
       <View style={styles.viewTextInput}>
         <View>
           <Controller
@@ -51,7 +45,7 @@ const RegisterScreen = () => {
                 message: 'Pattern is invalid.',
               },
             }}
-            render={({field: {onChange, onBlur}}) => (
+            render={({ field: { onChange, onBlur } }) => (
               <Input
                 label={'Email'}
                 placeholder="email@address.com"
@@ -75,7 +69,7 @@ const RegisterScreen = () => {
                 message: 'Min 4 character.',
               },
             }}
-            render={({field: {onChange, onBlur}}) => (
+            render={({ field: { onChange, onBlur } }) => (
               <Input
                 label={'Password'}
                 placeholder="Password"
@@ -90,7 +84,7 @@ const RegisterScreen = () => {
           <Controller
             name="confirmPassword"
             control={control}
-            render={({field: {onChange, onBlur}}) => (
+            render={({ field: { onChange, onBlur } }) => (
               <Input
                 label={'Confirm Password'}
                 placeholder="Confirm Password"

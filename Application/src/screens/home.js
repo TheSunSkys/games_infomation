@@ -1,22 +1,24 @@
 import React, { useMemo, useState } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { clientNews } from "@utils/cilent";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import CardNewsHorizon from "@components/CardNewsHorizon";
 import CradNewsHorizonPlaceholder from "@components/CradNewsHorizonPlaceholder";
 import CardNewsVertical from "@components/CardNewsVertical";
 import CardNewsVerticalPlaceholder from '@components/CardNewsVerticalPlaceholder'
+import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
+    const navigation = useNavigation()
     const [placeholderCount, setPlaceholderCount] = useState([1, 2, 3, 4, 5])
     const [isSteamNews, setSteamNews] = useState([])
     const [isEpicNews, setEpicNews] = useState([])
     const [isOtherNews, setOtherNews] = useState([])
     const getNews = async () => {
         try {
-            const { data: steamNews } = await clientNews.getSteamNews()
-            const { data: epicNews } = await clientNews.getEpicNews()
-            const { data: otherNews } = await clientNews.getOtherNews()
+            const { data: steamNews } = await clientNews.getSteamNews(5)
+            const { data: epicNews } = await clientNews.getEpicNews(5)
+            const { data: otherNews } = await clientNews.getOtherNews(5)
             // console.log('response: ', steamNews?.articles[0])
             setSteamNews(steamNews?.articles)
             setEpicNews(epicNews?.articles)
@@ -31,11 +33,13 @@ const HomeScreen = () => {
     }, [])
 
     return (
-        <ScrollView style={styles.viewScroll}>
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.viewScroll}>
             <View style={styles.viewContainer}>
                 <View style={styles.viewTitle}>
                     <Text style={styles.textTitle}>Steam</Text>
-                    <Text style={styles.textRight}>More {'>>'}</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('NewsListScreen', { type: 'steam' })}>
+                        <Text style={styles.textRight}>More {'>>'}</Text>
+                    </TouchableOpacity>
                 </View>
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                     {
@@ -59,7 +63,9 @@ const HomeScreen = () => {
                 </ScrollView>
                 <View style={styles.viewTitle}>
                     <Text style={styles.textTitle}>Epic</Text>
-                    <Text style={styles.textRight}>More {'>>'}</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('NewsListScreen', { type: 'epic' })}>
+                        <Text style={styles.textRight}>More {'>>'}</Text>
+                    </TouchableOpacity>
                 </View>
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                     {
@@ -83,7 +89,9 @@ const HomeScreen = () => {
                 </ScrollView>
                 <View style={styles.viewTitle}>
                     <Text style={styles.textTitle}>Other</Text>
-                    <Text style={styles.textRight}>More {'>>'}</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('NewsListScreen', { type: 'other' })}>
+                        <Text style={styles.textRight}>More {'>>'}</Text>
+                    </TouchableOpacity>
                 </View>
                 {
                     isOtherNews && isOtherNews.length > 0 ? isOtherNews.map((news, index) => {
