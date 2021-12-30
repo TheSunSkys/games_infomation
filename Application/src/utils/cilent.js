@@ -10,8 +10,7 @@ export const clientInstanceNews = axios.create(optionsNews);
 
 export const clientNews = {
     //   postRequestOTP: res => clientInstance.post('/user/requestOTP', res),
-    getSteamNews: () => clientInstanceNews.get(`/search?q=game steam&lang=en&max=10&token=${TOKEN}`),
-    getEpicNews: () => clientInstanceNews.get(`/search?q=game epic&lang=en&max=10&token=${TOKEN}`),
-    getOtherNews: () => clientInstanceNews.get(`/search?q=mobile game&lang=en&max=10&token=${TOKEN}`),
-    
+    getSteamNews: (max) => clientInstanceNews.get(`/search?q=game steam&lang=en&max=${max}&token=${TOKEN}`),
+    getEpicNews: (max) => clientInstanceNews.get(`/search?q=game epic&lang=en&max=${max}&token=${TOKEN}`),
+    getOtherNews: (max) => clientInstanceNews.get(`/search?q=mobile game&lang=en&max=${max}&token=${TOKEN}`),
 };
