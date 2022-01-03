@@ -3,6 +3,7 @@ import { View, StyleSheet, Text } from "react-native"
 import FastImage from 'react-native-fast-image'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import moment from "moment";
+import { fontSize } from "@utils/constant";
 
 const CardNewsVertical = ({
     title,
@@ -37,19 +38,20 @@ const styles = StyleSheet.create({
         backgroundColor: '#CFCFCF'
     },
     text: {
-        fontSize: hp('2%'),
+        fontSize: fontSize.sm,
         paddingHorizontal: wp('2%'),
         fontWeight: 'bold'
     },
     subText: {
-        fontSize: hp('2%'),
+        fontSize: fontSize.sm,
         paddingHorizontal: wp('2%'),
     },
     fastImage: {
         width: wp('35%'),
         height: hp('11%'),
         borderTopLeftRadius: 5,
-        borderBottomLeftRadius: 5
+        borderBottomLeftRadius: 5,
+        backgroundColor: 'black'
     },
     viewText: {
         flexDirection: 'column',

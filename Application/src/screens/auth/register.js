@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     borderRadius: 10,
     paddingVertical: 10,
+    marginVertical: 5
   },
   headerStyle: {
     justifyContent: 'space-between',

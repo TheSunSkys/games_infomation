@@ -3,6 +3,7 @@ import { Text, View, StyleSheet } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import moment from "moment";
+import { fontSize } from "@utils/constant";
 
 const CardNewsHorizon = ({
     image,
@@ -61,12 +62,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     text: {
-        fontSize: hp('2%'),
+        fontSize: fontSize.sm,
         paddingHorizontal: wp('2%'),
         fontWeight: 'bold'
     },
     subText: {
-        fontSize: hp('2%'),
+        fontSize: fontSize.sm,
         paddingHorizontal: wp('2%'),
     }
 })
