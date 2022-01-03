@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native"
 import Icon from 'react-native-vector-icons/Entypo';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from "@react-navigation/native";
+import { fontSize } from "@utils/constant";
 
 const Header = ({
     title = "",
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     },
     textHeaderStyle: {
         color: 'black',
-        fontSize: 24
+        fontSize: fontSize.xl
     },
 })
 

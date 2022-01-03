@@ -10,6 +10,7 @@ import SplashScreen from '@screens/splash';
 import LoginScreen from '@screens/auth/login';
 import RegisterScreen from '@screens/auth/register';
 import NewsList from '@screens/newsList';
+import NewsDetail from '@screens/newsDetail';
 
 const Stack = createNativeStackNavigator();
 
@@ -121,6 +122,7 @@ const Navigation = () => {
               }}>
               <Stack.Screen name="InitScreen" component={TabNavigate} />
               <Stack.Screen name="NewsListScreen" component={NewsList} />
+              <Stack.Screen name="NewsDetailScreen" component={NewsDetail} />
             </Stack.Group>
           )}
         </Stack.Navigator>

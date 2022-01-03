@@ -7,6 +7,21 @@ import CradNewsHorizonPlaceholder from "@components/CradNewsHorizonPlaceholder";
 import CardNewsVertical from "@components/CardNewsVertical";
 import CardNewsVerticalPlaceholder from '@components/CardNewsVerticalPlaceholder'
 import { useNavigation } from "@react-navigation/native";
+import { fontSize } from "@utils/constant";
+
+const mockData = [
+    {
+        "content": `Message games December 28, 2021, 10:16 The tests of Regiments, the military RTS, which will be released by MicroProse, have started on Steam. We have good news for the players waiting for Regiments, a realistic war RTS by Bird’s Eye Games studio. Tes... [1881 chars]", "description": "Message games December 28, 2021, 10:16 The tests of Regiments, the military RTS, which will be released by MicroProse, have started on Steam. We have good news for the players waiting for Regiments, a realistic war RTS by Bird’s Eye Games studio. Testing of an early version of the game has started on Steam. Currently, …`,
+        "image": "https://www.gry-online.pl/i/h/22/378381244.jpg",
+        "publishedAt": "2021-12-28T09:57:14Z",
+        "source": {
+            "name": "Spark Chronicles",
+            "url": "https://sparkchronicles.com"
+        },
+        "title": "Regiments - the war RTS to test for free on Steam",
+        "url": "https://sparkchronicles.com/regiments-the-war-rts-to-test-for-free-on-steam/"
+    }
+]
 
 const HomeScreen = () => {
     const navigation = useNavigation()
@@ -19,7 +34,7 @@ const HomeScreen = () => {
             const { data: steamNews } = await clientNews.getSteamNews(5)
             const { data: epicNews } = await clientNews.getEpicNews(5)
             const { data: otherNews } = await clientNews.getOtherNews(5)
-            // console.log('response: ', steamNews?.articles[0])
+            // console.log('response: ', steamNews?.articles[0].content)
             setSteamNews(steamNews?.articles)
             setEpicNews(epicNews?.articles)
             setOtherNews(otherNews?.articles)
@@ -45,13 +60,17 @@ const HomeScreen = () => {
                     {
                         isSteamNews && isSteamNews.length > 0 ? isSteamNews.map((news, index) => {
                             return (
-                                <CardNewsHorizon
+                                <TouchableOpacity
                                     key={index}
-                                    image={news?.image}
-                                    publishedAt={news?.publishedAt}
-                                    title={news?.title}
-                                    index={index}
-                                />
+                                    onPress={() => navigation.navigate('NewsDetailScreen', { data: news })}>
+                                    <CardNewsHorizon
+                                        key={index}
+                                        image={news?.image}
+                                        publishedAt={news?.publishedAt}
+                                        title={news?.title}
+                                        index={index}
+                                    />
+                                </TouchableOpacity>
                             )
                         })
                             : placeholderCount.map((_, index) => {
@@ -71,13 +90,17 @@ const HomeScreen = () => {
                     {
                         isEpicNews && isEpicNews.length > 0 ? isEpicNews.map((news, index) => {
                             return (
-                                <CardNewsHorizon
+                                <TouchableOpacity
                                     key={index}
-                                    image={news?.image}
-                                    publishedAt={news?.publishedAt}
-                                    title={news?.title}
-                                    index={index}
-                                />
+                                    onPress={() => navigation.navigate('NewsDetailScreen', { data: news })}>
+                                    <CardNewsHorizon
+                                        key={index}
+                                        image={news?.image}
+                                        publishedAt={news?.publishedAt}
+                                        title={news?.title}
+                                        index={index}
+                                    />
+                                </TouchableOpacity>
                             )
                         })
                             : placeholderCount.map((_, index) => {
@@ -96,11 +119,15 @@ const HomeScreen = () => {
                 {
                     isOtherNews && isOtherNews.length > 0 ? isOtherNews.map((news, index) => {
                         return (
-                            <CardNewsVertical
+                            <TouchableOpacity
                                 key={index}
-                                image={news?.image}
-                                publishedAt={news?.publishedAt}
-                                title={news?.title} />
+                                onPress={() => navigation.navigate('NewsDetailScreen', { data: news })}>
+                                <CardNewsVertical
+                                    key={index}
+                                    image={news?.image}
+                                    publishedAt={news?.publishedAt}
+                                    title={news?.title} />
+                            </TouchableOpacity>
                         )
                     })
                         : placeholderCount.map((_, index) => {
@@ -126,10 +153,10 @@ const styles = StyleSheet.create({
         marginTop: hp('2%'),
     },
     textTitle: {
-        fontSize: hp('4%')
+        fontSize: fontSize.xl
     },
     textRight: {
-        fontSize: hp('2%')
+        fontSize: fontSize.sm
     },
     viewTitle: {
         paddingHorizontal: wp('5%'),
