@@ -27,6 +27,7 @@
     "react-native-screens": "^3.10.0",
     "react-native-vector-icons": "^9.0.0",
     "react-query": "^3.34.0",
+    "recyclerlistview": "^3.0.5",
     "rn-placeholder": "^3.0.3"
   },
   "devDependencies": {
