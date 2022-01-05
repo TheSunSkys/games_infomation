@@ -1,5 +1,5 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Entypo';
 import IconLoni from 'react-native-vector-icons/Ionicons';
 import HomeScreen from '@screens/home';
@@ -11,8 +11,8 @@ const TabNavigate = () => {
 
   return (
     <Tab.Navigator
-      screenOptions={({route}) => ({
-        tabBarIcon: ({focused, color, size}) => {
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
           const sizeFocused = focused ? size + 4 : size;
           if (route.name === 'Home') {
             return <Icon name="home" size={sizeFocused} color="black" />;
@@ -33,6 +33,10 @@ const TabNavigate = () => {
         },
         tabBarActiveTintColor: 'blue',
         tabBarInactiveTintColor: 'gray',
+        keyboardHidesTabBar: false,
+        style: {
+          position: 'absolute',
+        },
       })}>
       <Tab.Screen
         name="Home"
