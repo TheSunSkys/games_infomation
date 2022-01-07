@@ -6,8 +6,10 @@ import Icon from 'react-native-vector-icons/Entypo';
 import { useNavigation } from '@react-navigation/native';
 import Header from '@components/Header';
 import { EMAIL_REGEX } from '@utils/validateInput';
+import { useTheme } from '@react-navigation/native';
 
 const RegisterScreen = () => {
+  const { colors } = useTheme();
   const navigation = useNavigation();
   const {
     handleSubmit,
@@ -28,8 +30,8 @@ const RegisterScreen = () => {
   };
 
   return (
-    <View style={styles.viewContainer}>
-      <Header title={'Register'} />
+    <View style={[styles.viewContainer, { backgroundColor: colors.BACKGROUND }]}>
+      <Header left={true} />
       <View style={styles.viewTextInput}>
         <View>
           <Controller
@@ -52,7 +54,8 @@ const RegisterScreen = () => {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 errorMessage={errors?.email?.message}
-                leftIcon={<Icon name="mail" size={24} color="black" />}
+                leftIcon={<Icon name="mail" size={24} color={colors.TEXT_TITLE} />}
+                labelStyle={{ color: colors.TEXT_TITLE }}
               />
             )}
           />
@@ -77,7 +80,8 @@ const RegisterScreen = () => {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 errorMessage={errors?.password?.message}
-                leftIcon={<Icon name="lock" size={24} color="black" />}
+                leftIcon={<Icon name="lock" size={24} color={colors.TEXT_TITLE} />}
+                labelStyle={{ color: colors.TEXT_TITLE }}
               />
             )}
           />
@@ -96,7 +100,8 @@ const RegisterScreen = () => {
                     ? 'password not match'
                     : ''
                 }
-                leftIcon={<Icon name="lock" size={24} color="black" />}
+                leftIcon={<Icon name="lock" size={24} color={colors.TEXT_TITLE} />}
+                labelStyle={{ color: colors.TEXT_TITLE }}
               />
             )}
           />
@@ -104,7 +109,7 @@ const RegisterScreen = () => {
         <View>
           <Button
             title={'Confirm'}
-            buttonStyle={styles.buttonStyle}
+            buttonStyle={[styles.buttonStyle, { backgroundColor: colors.BACKGROUND_COMPONENT }]}
             onPress={handleSubmit(onSubmit)}></Button>
         </View>
       </View>

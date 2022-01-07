@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useReducer } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -11,8 +11,19 @@ import LoginScreen from '@screens/auth/login';
 import RegisterScreen from '@screens/auth/register';
 import NewsList from '@screens/newsList';
 import NewsDetail from '@screens/newsDetail';
+import GameDetail from '@screens/game/detail';
+
+import { colors } from '@assets/styles/colors';
 
 const Stack = createNativeStackNavigator();
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    ...colors.dark
+  }
+};
 
 const Navigation = () => {
   const [state, dispatch] = useReducer(
@@ -82,7 +93,7 @@ const Navigation = () => {
 
   return (
     <AuthContext.Provider value={authContext}>
-      <NavigationContainer>
+      <NavigationContainer theme={MyTheme}>
         <Stack.Navigator
           initialRouteName={state && state.userToken && 'InitScreen'}>
           {state && state.isLoading ? (
@@ -119,10 +130,14 @@ const Navigation = () => {
               screenOptions={{
                 headerShown: false,
                 animation: 'slide_from_right',
+                contentStyle: {
+                  backgroundColor: colors.dark.BACKGROUND,
+                }
               }}>
               <Stack.Screen name="InitScreen" component={TabNavigate} />
               <Stack.Screen name="NewsListScreen" component={NewsList} />
               <Stack.Screen name="NewsDetailScreen" component={NewsDetail} />
+              <Stack.Screen name="GameDetailScreen" component={GameDetail} />
             </Stack.Group>
           )}
         </Stack.Navigator>

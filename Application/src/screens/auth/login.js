@@ -1,20 +1,21 @@
-import React, {useContext} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
-import {Button, Input} from 'react-native-elements';
-import {useForm, Controller} from 'react-hook-form';
+import React, { useContext } from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import { Button, Input } from 'react-native-elements';
+import { useForm, Controller } from 'react-hook-form';
 import Icon from 'react-native-vector-icons/Entypo';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 
-import {AuthContext} from '@navigation/auth';
-import {EMAIL_REGEX} from '@utils/validateInput';
+import { AuthContext } from '@navigation/auth';
+import { EMAIL_REGEX } from '@utils/validateInput';
 
 const LoginScreen = () => {
+  const { colors } = useTheme()
   const navigation = useNavigation();
-  const {signIn} = useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
   const {
     handleSubmit,
     control,
-    formState: {errors},
+    formState: { errors },
   } = useForm({
     defaultValues: {
       email: '',
@@ -27,10 +28,10 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={styles.viewContainer}>
+    <View style={[styles.viewContainer, { backgroundColor: colors?.BACKGROUND }]}>
       <View style={styles.viewTextInput}>
         <View style={styles.viewLogoStyle}>
-          <Text style={styles.textLogoPartA}>Game Information</Text>
+          <Text style={[styles.textLogoPartA, { color: colors?.TEXT_ACTIVE }]}>Game Information</Text>
         </View>
         <View>
           <Controller
@@ -46,14 +47,20 @@ const LoginScreen = () => {
                 message: 'Pattern is invalid.',
               },
             }}
-            render={({field: {onChange, onBlur}}) => (
+            render={({ field: { onChange, onBlur } }) => (
               <Input
                 label={'Email'}
                 placeholder="email@address.com"
                 onChangeText={onChange}
                 onBlur={onBlur}
                 errorMessage={errors?.email?.message}
-                leftIcon={<Icon name="mail" size={24} color="black" />}
+                leftIcon={<Icon name="mail" size={24} color={colors?.TEXT_TITLE} />}
+                labelStyle={{
+                  color: colors?.TEXT_TITLE
+                }}
+                inputStyle={{
+                  color: colors?.TEXT_TITLE
+                }}
               />
             )}
           />
@@ -71,7 +78,7 @@ const LoginScreen = () => {
                 message: 'Min 4 character.',
               },
             }}
-            render={({field: {onChange, onBlur}}) => (
+            render={({ field: { onChange, onBlur } }) => (
               <Input
                 label={'Password'}
                 placeholder="Password"
@@ -79,19 +86,25 @@ const LoginScreen = () => {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 errorMessage={errors?.password?.message}
-                leftIcon={<Icon name="lock" size={24} color="black" />}
+                leftIcon={<Icon name="lock" size={24} color={colors?.TEXT_TITLE} />}
+                labelStyle={{
+                  color: colors?.TEXT_TITLE
+                }}
+                inputStyle={{
+                  color: colors?.TEXT_TITLE
+                }}
               />
             )}
           />
         </View>
         <View>
           <Button
-            buttonStyle={styles.buttonLogin}
+            buttonStyle={[styles.buttonLogin, { backgroundColor: colors?.BACKGROUND_COMPONENT }]}
             title={'Login'}
             onPress={handleSubmit(onSubmit)}
           />
           <Button
-            buttonStyle={styles.buttonLogin}
+            buttonStyle={[styles.buttonLogin, { backgroundColor: colors?.BACKGROUND_COMPONENT }]}
             title={'Register'}
             onPress={() => navigation.navigate('RegisterScreen')}
           />
@@ -113,7 +126,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textLogoPartA: {
-    color: 'black',
     fontSize: 34,
   },
   viewTextInput: {

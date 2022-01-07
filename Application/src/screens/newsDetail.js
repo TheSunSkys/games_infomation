@@ -5,8 +5,10 @@ import FastImage from 'react-native-fast-image'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import moment from "moment";
 import { fontSize } from "@utils/constant";
+import { useTheme } from '@react-navigation/native';
 
 const NewsDetail = ({ route }) => {
+    const { colors } = useTheme()
     const { data } = route?.params
 
     const handlePress = useCallback(async () => {
@@ -26,10 +28,10 @@ const NewsDetail = ({ route }) => {
                     resizeMode={FastImage.resizeMode.cover}
                 />
                 <View style={styles.viewText}>
-                    <Text style={styles.textTitle}>{data?.title}</Text>
-                    <Text style={[styles.textContent, { fontWeight: '500' }]}>{moment(data?.publishedAt).format('l')}</Text>
-                    <Text style={styles.textContent}>     {data?.content.substring(0, data?.content.length - 12)}</Text>
-                    <Text style={styles.textReadMore}>Read More</Text>
+                    <Text style={[styles.textTitle, { color: colors.TEXT_TITLE }]}>{data?.title}</Text>
+                    <Text style={[styles.textContent, { fontWeight: '500', color: colors.TEXT_SUBTITLE }]}>{moment(data?.publishedAt).format('l')}</Text>
+                    <Text style={[styles.textContent, { color: colors.TEXT_TITLE }]}>     {data?.content.substring(0, data?.content.length - 12)}</Text>
+                    <Text style={[styles.textReadMore, { color: colors.TEXT_TITLE }]}>Read More</Text>
                     <Text style={styles.textUrl} onPress={handlePress}>{data?.url}</Text>
                 </View>
             </ScrollView>

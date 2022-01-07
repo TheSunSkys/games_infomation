@@ -3,14 +3,18 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { StyleSheet } from "react-native";
 import { ListItem } from 'react-native-elements'
 import { fontSize } from "@utils/constant";
+import { useTheme } from '@react-navigation/native';
 
 const SettingCard = ({
     title,
     textColor,
     onPass = () => { }
 }) => {
+    const { colors } = useTheme()
+
     return (
         <ListItem
+            containerStyle={{ backgroundColor: colors?.BACKGROUND_COMPONENT }}
             onPress={onPass}
             bottomDivider
         >

@@ -4,14 +4,17 @@ import FastImage from 'react-native-fast-image'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import moment from "moment";
 import { fontSize } from "@utils/constant";
+import { useTheme } from '@react-navigation/native';
 
 const CardNewsVertical = ({
     title,
     publishedAt,
     image
 }) => {
+    const { colors } = useTheme()
+
     return (
-        <View style={styles.viewContainer}>
+        <View style={[styles.viewContainer, { backgroundColor: colors?.BACKGROUND_COMPONENT }]}>
             <FastImage
                 style={styles.fastImage}
                 source={{
@@ -21,8 +24,8 @@ const CardNewsVertical = ({
                 resizeMode={FastImage.resizeMode.cover}
             />
             <View style={styles.viewText}>
-                <Text style={styles.text} numberOfLines={2}>{title}</Text>
-                <Text style={styles.subText} numberOfLines={1}>{moment(publishedAt).format('l')}</Text>
+                <Text style={[styles.text, { color: colors.TEXT_TITLE }]} numberOfLines={2}>{title}</Text>
+                <Text style={[styles.subText, { color: colors.TEXT_SUBTITLE }]} numberOfLines={1}>{moment(publishedAt).format('l')}</Text>
             </View>
         </View>
     )
@@ -35,7 +38,6 @@ const styles = StyleSheet.create({
         marginHorizontal: wp('5%'),
         marginBottom: hp('2%'),
         borderRadius: 5,
-        backgroundColor: '#CFCFCF'
     },
     text: {
         fontSize: fontSize.sm,

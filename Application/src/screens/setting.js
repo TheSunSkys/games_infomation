@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import Header from '@components/Header'
 import SettingCard from '@components/SettingCard';
 import { AuthContext } from '@navigation/auth';
+import { useTheme } from '@react-navigation/native';
 
 const SettingScreen = ({ navigation }) => {
+  const { colors } = useTheme()
   const { signOut } = useContext(AuthContext);
   const settings = [
     {
@@ -24,9 +26,10 @@ const SettingScreen = ({ navigation }) => {
   )
 
   return (
-    <View>
-      <Header title={"Setting"} left={false} color={'#FFFFFF'} />
+    <View style={[styles.viewContainer, { backgroundColor: colors?.BACKGROUND }]}>
+      <Header title={"Setting"} left={false} />
       <FlatList
+        style={styles.flatList}
         data={settings}
         renderItem={renderItem}
         keyExtractor={item => item.id}
@@ -34,5 +37,14 @@ const SettingScreen = ({ navigation }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  viewContainer: {
+    flex: 1,
+  },
+  flatList: {
+    marginTop: 8
+  }
+})
 
 export default SettingScreen;

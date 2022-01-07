@@ -7,8 +7,12 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import GameList from "@components/GameList";
 import GameCard from "@components/GameCard";
 import Icon from 'react-native-vector-icons/Feather';
+import { useNavigation } from "@react-navigation/native";
+import { useTheme } from '@react-navigation/native';
 
 const GameScreen = () => {
+    const { colors } = useTheme()
+    const navigation = useNavigation()
     const [search, setSearch] = useState([])
     const [filteredDataSource, setFilteredDataSource] = useState([]);
     const [masterDataSource, setMasterDataSource] = useState([]);
@@ -37,16 +41,22 @@ const GameScreen = () => {
     useEffect(() => {
         const mock = [
             {
-                logo: require('../assets/image/lol.png'),
-                title: 'League Of Legends'
+                id: 1,
+                logo: require('@assets/image/lol.png'),
+                title: 'League Of Legends',
+                type: 'moba'
             },
             {
-                logo: require('../assets/image/dota2.png'),
-                title: 'Dota2'
+                id: 2,
+                logo: require('@assets/image/dota2.png'),
+                title: 'Dota2',
+                type: 'moba'
             },
             {
-                logo: require('../assets/image/rov.png'),
-                title: 'Arena of Valor(RoV)'
+                id: 3,
+                logo: require('@assets/image/rov.png'),
+                title: 'Arena of Valor(RoV)',
+                type: 'moba'
             },
         ]
         setMasterDataSource(mock)
@@ -56,11 +66,31 @@ const GameScreen = () => {
     const renderItem = (type, data) => {
         if (!viewGameList) {
             return (
-                <GameCard image={data?.logo} />
+                <GameCard
+                    image={data?.logo}
+                    onPress={() => {
+                        navigation.navigate('GameDetailScreen', {
+                            type: data?.type,
+                            id: data?.id,
+                            name: data?.title,
+                            image: data?.logo
+                        })
+                    }} />
             )
         } else {
             return (
-                <GameList title={data?.title} image={data?.logo} />
+                <GameList
+                    title={data?.title}
+                    image={data?.logo}
+                    onPress={() => {
+                        navigation.navigate('GameDetailScreen', {
+                            type: data?.type,
+                            id: data?.id,
+                            name: data?.title,
+                            image: data?.logo
+                        })
+                    }}
+                />
             )
         }
     }
@@ -83,15 +113,10 @@ const GameScreen = () => {
     );
 
     return (
-        <View style={{ flex: 1 }}>
-            <Header left={false} title={'Games'} color={'#FFFFFF'} />
+        <View style={[styles.viewContainer, { backgroundColor: colors?.BACKGROUND }]}>
+            <Header left={false} title={'Games'} />
             <View style={styles.viewContainer}>
-                <View style={{
-                    backgroundColor: '#FFFFFF',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingRight: wp('2.5%'),
-                }}>
+                <View style={styles.viewContent}>
                     <SearchBar
                         round
                         searchIcon={{ size: 24 }}
@@ -101,12 +126,12 @@ const GameScreen = () => {
                         value={search}
                         lightTheme={true}
                         containerStyle={styles.search}
-                        inputContainerStyle={{ backgroundColor: '#CFCFCF' }}
+                        inputContainerStyle={{ backgroundColor: colors?.BACKGROUND_COMPONENT }}
                     />
                     <TouchableOpacity
                         onPress={() => setViewGameList(!viewGameList)}
                         style={styles.icon}>
-                        <Icon name={!viewGameList ? "list" : "grid"} size={24} color="black" />
+                        <Icon name={!viewGameList ? "list" : "grid"} size={24} color={colors?.BACKGROUND_COMPONENT} />
                     </TouchableOpacity>
                 </View>
                 {
@@ -134,9 +159,14 @@ const styles = StyleSheet.create({
     search: {
         paddingRight: 0,
         width: wp('85%'),
-        backgroundColor: '#FFFFFF',
+        backgroundColor: 'transparent',
         borderTopWidth: 0,
         borderBottomWidth: 0
+    },
+    viewContent: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingRight: wp('2.5%'),
     }
 })
 
