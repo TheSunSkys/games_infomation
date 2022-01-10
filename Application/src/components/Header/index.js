@@ -21,7 +21,7 @@ const Header = ({
             [
                 styles.headerStyle,
                 {
-                    backgroundColor: title ? colors?.BACKGROUND_COMPONENT : 'transparent',
+                    backgroundColor: title && !left ? colors?.BACKGROUND_COMPONENT : 'transparent',
                     justifyContent: left && title ? 'flex-start' : 'space-between',
                 }
             ]}>
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingTop: 10,
         paddingBottom: 15,
-        paddingHorizontal: wp('5%'),
+        paddingHorizontal: wp('3%'),
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10
     },

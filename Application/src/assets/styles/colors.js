@@ -4,6 +4,8 @@ const WHITE = '#FFFFFF'
 const WHITE_DOWN = '#DEDEDE'
 const WHITE_DOWN_TWO = '#B5B5B5'
 const BLACK_UP = '#353535'
+const YELLOW = '#7f7a6f'
+const GOLD = '#bea67c'
 
 const light = {
     BACKGROUND: WHITE,
@@ -11,7 +13,10 @@ const light = {
     TEXT_ACTIVE: BLACK,
     TEXT_UNACTIVE: GRAY,
     TEXT_TITLE: WHITE_DOWN,
-    TEXT_SUBTITLE: WHITE_DOWN_TWO
+    TEXT_SUBTITLE: WHITE_DOWN_TWO,
+    BORDER_ACTIVE: YELLOW,
+    TEXT_STORY: YELLOW,
+    PROGRESS: GOLD
 };
 
 const dark = {
@@ -20,7 +25,10 @@ const dark = {
     TEXT_ACTIVE: WHITE,
     TEXT_UNACTIVE: GRAY,
     TEXT_TITLE: WHITE_DOWN,
-    TEXT_SUBTITLE: WHITE_DOWN_TWO
+    TEXT_SUBTITLE: WHITE_DOWN_TWO,
+    BORDER_ACTIVE: YELLOW,
+    TEXT_STORY: YELLOW,
+    PROGRESS: GOLD
 };
 
 export const colors = { light, dark };

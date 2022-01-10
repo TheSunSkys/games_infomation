@@ -12,6 +12,7 @@ import RegisterScreen from '@screens/auth/register';
 import NewsList from '@screens/newsList';
 import NewsDetail from '@screens/newsDetail';
 import GameDetail from '@screens/game/detail';
+import HeroDetail from '@screens/game/moba/hero';
 
 import { colors } from '@assets/styles/colors';
 
@@ -138,6 +139,7 @@ const Navigation = () => {
               <Stack.Screen name="NewsListScreen" component={NewsList} />
               <Stack.Screen name="NewsDetailScreen" component={NewsDetail} />
               <Stack.Screen name="GameDetailScreen" component={GameDetail} />
+              <Stack.Screen name="HeroDetailScreen" component={HeroDetail} />
             </Stack.Group>
           )}
         </Stack.Navigator>

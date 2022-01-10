@@ -18,17 +18,25 @@ const TabNavigate = () => {
         tabBarIcon: ({ focused, color, size }) => {
           const sizeFocused = focused ? size + 4 : size;
           if (route.name === 'Home') {
-            return <Icon name="home" size={sizeFocused} color={colors.TEXT_ACTIVE} />;
+            return <Icon
+              name="home"
+              size={sizeFocused}
+              color={focused ? colors.TEXT_ACTIVE : colors.TEXT_UNACTIVE}
+            />;
           } else if (route?.name === 'Games') {
             return (
-              <Icon name="game-controller" size={sizeFocused} color={colors.TEXT_ACTIVE} />
+              <Icon
+                name="game-controller"
+                size={sizeFocused}
+                color={focused ? colors.TEXT_ACTIVE : colors.TEXT_UNACTIVE}
+              />
             );
           } else if (route?.name === 'Setting') {
             return (
               <IconLoni
                 name="settings-sharp"
                 size={sizeFocused}
-                color={colors.TEXT_ACTIVE}
+                color={focused ? colors.TEXT_ACTIVE : colors.TEXT_UNACTIVE}
               />
             );
           }

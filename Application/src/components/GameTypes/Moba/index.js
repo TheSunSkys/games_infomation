@@ -1,15 +1,17 @@
 import React, { useState } from "react"
-import { StyleSheet } from "react-native"
+import { ScrollView, StyleSheet } from "react-native"
 import { RecyclerListView, DataProvider, LayoutProvider } from "recyclerlistview";
 import { Tab, Text, TabView } from 'react-native-elements';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useTheme } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
-import MobaHeroCard from "@components/MobaHeroCard"
+import MobaHeroCard from "./MobaHeroCard";
 import { fontSize } from "@utils/constant";
 
-const MobaView = ({ allHero }) => {
+const MobaView = ({ allHero, gameName = "", gameId = 1, story = "", source = "" }) => {
     const { colors } = useTheme()
+    const navigation = useNavigation()
     const [index, setIndex] = useState(0);
 
     const dataProvider = new DataProvider((r1, r2) => {
@@ -25,7 +27,15 @@ const MobaView = ({ allHero }) => {
     );
 
     const renderItem = (t, data) => {
-        return <MobaHeroCard image={data?.heroid} />
+        return <MobaHeroCard
+            image={data?.heroid}
+            onPress={() => navigation.navigate('HeroDetailScreen',
+                {
+                    heroId: data?.heroid,
+                    gameName: gameName,
+                    gameId: gameId
+                })}
+        />
     }
 
     return (
@@ -62,8 +72,10 @@ const MobaView = ({ allHero }) => {
                 onChange={setIndex}
                 animationType="spring"
             >
-                <TabView.Item style={styles.tabView}>
-                    <Text style={{ color: colors?.TEXT_ACTIVE }}>Cart</Text>
+                <TabView.Item style={[styles.tabView, { paddingHorizontal: wp('5%'), }]}>
+                    <ScrollView>
+                        <Text style={{ color: colors?.TEXT_STORY, fontSize: fontSize.sm }}>      {story}</Text>
+                    </ScrollView>
                 </TabView.Item>
                 <TabView.Item style={styles.tabView}>
                     <RecyclerListView

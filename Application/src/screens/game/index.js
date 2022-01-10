@@ -44,19 +44,25 @@ const GameScreen = () => {
                 id: 1,
                 logo: require('@assets/image/lol.png'),
                 title: 'League Of Legends',
-                type: 'moba'
+                type: 'moba',
+                story: '',
+                source: ''
             },
             {
                 id: 2,
                 logo: require('@assets/image/dota2.png'),
                 title: 'Dota2',
-                type: 'moba'
+                type: 'moba',
+                story: '',
+                source: ''
             },
             {
                 id: 3,
                 logo: require('@assets/image/rov.png'),
                 title: 'Arena of Valor(RoV)',
-                type: 'moba'
+                type: 'moba',
+                story: `Athanor was a world where the faith in heavenly beings had vanished and lawlessness prevailed. Creatures of unspeakable horror ran amok with no sign of the world ever being saved from its suffering. Its citizens began to lose hope. Until a brave soul stood up against this darkness. His name was Arthur. Arthur was a young promising knight who sought to overcome the impossible by restoring order to the world he loved dearly. He walked tall with a sword of justice in his hand and righteousness in his heart. Arthur preached the principles of justice and honor, heading down the path of discipline as a knight. He built up an order, recruiting brave men from far and wide to rally against the demons that plagued them. Arthur raised humanity’s morale once more and built up peace and order amidst the darkness. Under Arthur’s leadership, the Order impeded the Demon Legion’s advance. This aggravated Ravanor’s leader, Maloch. Realizing that Arthur was a threat to his rule, he began to overwhelm the Order, but Arthur and his knights were not shaken. They would not be defeated. The Order kept growing, their numbers increasing with each battle until they became a force to be reckoned with. Victory eventually came, the Order driving back the demons to whence they came. Arthur and his men brought mankind a place in the world, a place where they were finally recognized as equals rather than as beneath the other races. This was all the beginning of a road to finding peace.`,
+                source: 'https://samurai-gamers.com/arena-of-valor/the-lore-of-arena-of-valor/'
             },
         ]
         setMasterDataSource(mock)
@@ -73,7 +79,9 @@ const GameScreen = () => {
                             type: data?.type,
                             id: data?.id,
                             name: data?.title,
-                            image: data?.logo
+                            image: data?.logo,
+                            story: data?.story,
+                            source: data?.source
                         })
                     }} />
             )
@@ -87,7 +95,9 @@ const GameScreen = () => {
                             type: data?.type,
                             id: data?.id,
                             name: data?.title,
-                            image: data?.logo
+                            image: data?.logo,
+                            story: data?.story,
+                            source: data?.source
                         })
                     }}
                 />

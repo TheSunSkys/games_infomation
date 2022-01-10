@@ -10,7 +10,7 @@ import MobaView from "@components/GameTypes/Moba";
 
 const GameDetail = ({ route }) => {
     const { colors } = useTheme();
-    const { id, name = "", type = "", image } = route?.params
+    const { id, name = "", type = "", image, source = "", story = "" } = route?.params
     const [allHero, setAllHero] = useState([])
     const [fadeAnimation, setFadeAnimation] = useState(new Animated.Value(0))
 
@@ -50,7 +50,13 @@ const GameDetail = ({ route }) => {
             </View>
             <View style={styles.viewContent}>
                 {
-                    type === "moba" && allHero.length > 0 && <MobaView allHero={allHero} />
+                    type === "moba" && allHero.length > 0 && <MobaView
+                        story={story}
+                        source={source}
+                        allHero={allHero}
+                        gameName={name}
+                        gameId={id}
+                    />
                 }
             </View>
         </View>
