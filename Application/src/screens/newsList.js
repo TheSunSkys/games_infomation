@@ -4,6 +4,7 @@ import Header from "@components/Header";
 import { clientNews } from "@utils/cilent";
 import CardNewsVertical from "@components/CardNewsVertical"
 import CardNewsVerticalPlaceholder from "@components/CardNewsVerticalPlaceholder"
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const NewsList = ({ route, navigation }) => {
     const { type } = route?.params
@@ -49,11 +50,14 @@ const NewsList = ({ route, navigation }) => {
             <Header title={`${type} News`} />
             {
                 isNews?.length > 0 ? <FlatList
+                    style={styles.viewContent}
                     data={isNews}
                     renderItem={renderItem}
                     keyExtractor={item => item.url}
                 />
-                    : <ScrollView showsVerticalScrollIndicator={false}>
+                    : <ScrollView
+                        style={styles.viewContent}
+                        showsVerticalScrollIndicator={false}>
                         {
                             placeholderCount.map((_, index) => {
                                 return (
@@ -70,6 +74,9 @@ const NewsList = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     viewContainer: {
         flex: 1
+    },
+    viewContent: {
+        paddingTop: hp('2%'),
     }
 })
 

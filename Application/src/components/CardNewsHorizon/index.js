@@ -4,6 +4,7 @@ import FastImage from 'react-native-fast-image'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import moment from "moment";
 import { fontSize } from "@utils/constant";
+import { useTheme } from '@react-navigation/native';
 
 const CardNewsHorizon = ({
     image,
@@ -11,10 +12,12 @@ const CardNewsHorizon = ({
     title,
     index
 }) => {
+    const { colors } = useTheme()
+
     return (
         <View style={[styles.viewContainer, index === 0 ? styles.firstCard : null]}>
             <View
-                style={styles.viewCard}>
+                style={[styles.viewCard, { backgroundColor: colors?.BACKGROUND_COMPONENT }]}>
                 <FastImage
                     style={styles.fastImage}
                     source={{
@@ -24,8 +27,8 @@ const CardNewsHorizon = ({
                     resizeMode={FastImage.resizeMode.cover}
                 />
                 <View style={styles.viewText}>
-                    <Text style={styles.text} numberOfLines={1}>{title}</Text>
-                    <Text style={styles.subText} numberOfLines={1}>{moment(publishedAt).format('l')}</Text>
+                    <Text style={[styles.text, { color: colors.TEXT_TITLE }]} numberOfLines={1}>{title}</Text>
+                    <Text style={[styles.subText, { color: colors.TEXT_SUBTITLE }]} numberOfLines={1}>{moment(publishedAt).format('l')}</Text>
                 </View>
             </View>
         </View>
@@ -49,7 +52,6 @@ const styles = StyleSheet.create({
         height: hp('25%'),
         width: wp('65%'),
         borderRadius: 10,
-        backgroundColor: '#CFCFCF'
     },
     fastImage: {
         height: '70%',
