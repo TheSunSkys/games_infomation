@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Animated, StyleSheet, ScrollView, Text, TouchableOpacity } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { useTheme } from "@react-navigation/native"
@@ -9,7 +9,8 @@ const MobaHeroSkinCard = ({
     isHeroImage = "",
     isHeroDetail = {},
     setHeroImage = () => { },
-    fadeAnimation = 0
+    fadeAnimation = 0,
+    gameId
 }) => {
     const BASE_URI_HERO_ROV = 'https://www.arenaofvalor.com/images/heroes/'
     const ROLE = ['Unknow', 'Tank', 'Warrior', 'Assassin', 'Mage', 'Marksman', 'Support']
@@ -19,13 +20,13 @@ const MobaHeroSkinCard = ({
         <Animated.View style={[styles.viewImage, { opacity: fadeAnimation }]}>
             <FastImage
                 style={styles.fastImage}
-                source={isHeroImage ? { uri: BASE_URI_HERO_ROV + "skin/" + isHeroImage + '_big.jpg' } : null}
-                resizeMode={FastImage.resizeMode.cover}
+                source={{ uri: isHeroImage }}
+                resizeMode={gameId === 3 ? FastImage.resizeMode.cover : FastImage.resizeMode.contain}
             />
             <View style={styles.viewText} >
-                <Text style={{ color: colors.TEXT_ACTIVE, fontSize: fontSize.xs }} >{isHeroDetail?.title}</Text>
-                <Text style={{ color: colors.TEXT_ACTIVE, fontSize: fontSize.xl }} >{isHeroDetail?.name}</Text>
-                <Text style={{ color: colors.TEXT_ACTIVE, fontSize: fontSize.xs }} >{ROLE[isHeroDetail?.job ? isHeroDetail?.job : 0].toUpperCase()}</Text>
+                <Text numberOfLines={1} style={{ color: colors.TEXT_ACTIVE, fontSize: fontSize.xs }} >{isHeroDetail?.job ? isHeroDetail?.title : ''}</Text>
+                <Text numberOfLines={2} style={{ color: colors.TEXT_ACTIVE, fontSize: fontSize.xl }} >{isHeroDetail?.name}</Text>
+                <Text numberOfLines={2} style={{ color: colors.TEXT_ACTIVE, fontSize: fontSize.xs }} >{isHeroDetail?.job && ROLE[isHeroDetail?.job].toUpperCase() || isHeroDetail?.title}</Text>
             </View>
             <ScrollView
                 horizontal={true}
@@ -41,7 +42,7 @@ const MobaHeroSkinCard = ({
                                 <FastImage
                                     style={[styles.fastImage, {
                                         borderRadius: 5,
-                                        borderWidth: skin === isHeroImage ? 2 : 0,
+                                        borderWidth: isHeroImage && isHeroImage.indexOf(skin + '_big.jpg') > -1 ? 2 : 0,
                                         borderColor: colors.BORDER_ACTIVE
                                     }]}
                                     source={isHeroDetail?.skin ? { uri: BASE_URI_HERO_ROV + "skin/" + skin + '_icon.jpg' } : null}
@@ -86,7 +87,8 @@ const styles = StyleSheet.create({
     viewText: {
         position: 'absolute',
         left: 0,
-        marginLeft: 5
+        marginLeft: 5,
+        width: wp('40%')
     },
 })
 

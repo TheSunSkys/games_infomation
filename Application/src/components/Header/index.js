@@ -26,15 +26,15 @@ const Header = ({
                 }
             ]}>
             {
-                left ? <TouchableOpacity onPress={() => navigation.goBack()}>
+                left ? <TouchableOpacity style={{ marginRight: 10, padding: 5 }} onPress={() => navigation.goBack()}>
                     {/* <Icon name="chevron-thin-left" size={24} color={colors?.TEXT_ACTIVE} /> */}
                     <Icon
                         size={24}
-                        reverse
+                        // reverse
                         name='chevron-thin-left'
                         type='entypo'
                         color={colors?.BACKGROUND_COMPONENT}
-                        backgroundColor={colors?.BACKGROUND}
+                    // backgroundColor={colors?.BACKGROUND}
                     />
                 </TouchableOpacity>
                     : <View></View>

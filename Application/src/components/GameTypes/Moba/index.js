@@ -27,15 +27,31 @@ const MobaView = ({ allHero, gameName = "", gameId = 1, story = "", source = "" 
     );
 
     const renderItem = (t, data) => {
-        return <MobaHeroCard
-            image={data?.heroid}
-            onPress={() => navigation.navigate('HeroDetailScreen',
-                {
-                    heroId: data?.heroid,
-                    gameName: gameName,
-                    gameId: gameId
-                })}
-        />
+        // console.log(data?.image)
+        if (gameId === 2) {
+            return <MobaHeroCard
+                gameId={gameId}
+                image={data?.image}
+                onPress={() => navigation.navigate('HeroDetailScreen',
+                    {
+                        heroId: data?.id,
+                        gameName: gameName,
+                        gameId: gameId,
+                        heroDetail: data
+                    })}
+            />
+        } else if (gameId === 3) {
+            return <MobaHeroCard
+                gameId={gameId}
+                image={data?.heroid}
+                onPress={() => navigation.navigate('HeroDetailScreen',
+                    {
+                        heroId: data?.heroid,
+                        gameName: gameName,
+                        gameId: gameId
+                    })}
+            />
+        }
     }
 
     return (

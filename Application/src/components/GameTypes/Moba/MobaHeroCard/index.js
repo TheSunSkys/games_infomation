@@ -4,19 +4,31 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import FastImage from 'react-native-fast-image'
 
 const MobaHeroCard = ({
-    name = "",
+    gameId = 1,
     image,
     onPress = () => { }
 }) => {
     const BASE_URI_HERO_ROV = 'https://www.arenaofvalor.com/images/heroes/pic_122_122/'
+    const BASE_URI_HERO_DOTA_2 = 'http://cdn.dota2.com'
 
     return (
         <TouchableOpacity onPress={onPress} style={styles.viewItem} >
-            <FastImage
-                style={styles.fastImage}
-                source={image ? { uri: BASE_URI_HERO_ROV + image + '.jpg' } : null}
-                resizeMode={FastImage.resizeMode.cover}
-            />
+            {
+                gameId === 3 &&
+                <FastImage
+                    style={styles.fastImage}
+                    source={image ? { uri: BASE_URI_HERO_ROV + image + '.jpg' } : null}
+                    resizeMode={FastImage.resizeMode.cover}
+                />
+            }
+            {
+                gameId === 2 &&
+                <FastImage
+                    style={styles.fastImage}
+                    source={image ? { uri: BASE_URI_HERO_DOTA_2 + image } : null}
+                    resizeMode={FastImage.resizeMode.cover}
+                />
+            }
         </TouchableOpacity>
     )
 }

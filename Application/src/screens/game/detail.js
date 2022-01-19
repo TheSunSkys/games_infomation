@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react"
 import { View, StyleSheet, Dimensions, Animated, ScrollView } from "react-native"
-import { clientRov } from "@utils/cilent"
+import { clientRov, clientDota2 } from "@utils/cilent"
 import FastImage from 'react-native-fast-image'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useTheme } from '@react-navigation/native';
@@ -25,6 +25,17 @@ const GameDetail = ({ route }) => {
             if (type === "moba" && id === 3) {
                 const { data: { data } } = await clientRov.getHero(0)
                 setAllHero(data)
+            } else if (type === "moba" && id === 2) {
+                const { data } = await clientDota2.getHero()
+                let dota2Hero = []
+                data.map((hero) => {
+                    dota2Hero.push({
+                        id: hero?.id,
+                        image: hero?.img,
+                        name: hero?.name
+                    })
+                })
+                setAllHero(dota2Hero)
             }
         } catch (error) {
             console.log(error)

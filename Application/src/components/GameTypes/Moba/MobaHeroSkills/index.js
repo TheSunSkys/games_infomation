@@ -76,7 +76,8 @@ const styles = StyleSheet.create({
     viewContainer: {
         width: wp('100%'),
         paddingHorizontal: wp('5%'),
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: hp('2%'),
     },
     titleStyle: {
         fontSize: fontSize.sm
