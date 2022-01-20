@@ -2,17 +2,19 @@ import React from "react"
 import { StyleSheet, TouchableOpacity } from "react-native"
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import FastImage from 'react-native-fast-image'
+import { useTheme } from '@react-navigation/native';
 
 const MobaHeroCard = ({
     gameId = 1,
     image,
     onPress = () => { }
 }) => {
+    const { colors } = useTheme()
     const BASE_URI_HERO_ROV = 'https://www.arenaofvalor.com/images/heroes/pic_122_122/'
     const BASE_URI_HERO_DOTA_2 = 'http://cdn.dota2.com'
 
     return (
-        <TouchableOpacity onPress={onPress} style={styles.viewItem} >
+        <TouchableOpacity onPress={onPress} style={[styles.viewItem, { backgroundColor: colors?.BACKGROUND_COMPONENT }]} >
             {
                 gameId === 3 &&
                 <FastImage
