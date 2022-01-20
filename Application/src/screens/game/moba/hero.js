@@ -2,10 +2,12 @@ import React, { useState, useMemo } from "react"
 import { View, StyleSheet, Animated } from 'react-native'
 import { useTheme } from "@react-navigation/native"
 import Header from '@components/Header'
-import { clientRov } from "@utils/cilent"
+import { clientRov, clientDota2 } from "@utils/cilent"
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { fontSize } from "@utils/constant";
 import { Tab, TabView } from 'react-native-elements';
+import FastImage from 'react-native-fast-image'
+
 import MobaHeroSkinCard from "@components/GameTypes/Moba/MobaHeroSkinCard"
 import MobaHeroStory from "@components/GameTypes/Moba/MobaHeroStory"
 import MobaHeroStats from "@components/GameTypes/Moba/MobaHeroStats"
@@ -13,13 +15,17 @@ import MobaHeroSkills from "@components/GameTypes/Moba/MobaHeroSkills"
 
 const HeroDetail = ({ route }) => {
     const { colors } = useTheme()
-    const { heroId, gameName, gameId } = route?.params
+    const { heroId, gameName, gameId, heroDetail = {} } = route?.params
     const [isHeroDetail, setHeroDetail] = useState(null)
     const [isLoading, setLoading] = useState(false)
     const [isHeroImage, setHeroImage] = useState(null)
     const [index, setIndex] = useState(0);
     const [fadeAnimation, setFadeAnimation] = useState(new Animated.Value(0))
     const [isSkillInfo, setSkillInfo] = useState(null)
+
+    const uqName = (name) => {
+        return name.replace(/npc_dota_hero_/ig, '')
+    }
 
     const getHeroDetail = async () => {
         try {
@@ -35,11 +41,26 @@ const HeroDetail = ({ route }) => {
                 data.damage = Number(data?.damage) / 10
                 data.spelldamage = Number(data?.spelldamage) / 10
                 data.difficulty = Number(data?.difficulty) / 10
+                data.resizeMode = false
                 // console.log(data)
                 setHeroDetail(data)
-                setHeroImage(data?.skin[0])
+                setHeroImage(`https://www.arenaofvalor.com/images/heroes/skin/${data?.skin[0]}_big.jpg`)
                 setSkillInfo({
                     ...data?.skill[0],
+                    index: 0
+                })
+            } else if (gameId === 2) {
+                const { data: { result: { data: { heroes: data } } } } = await clientDota2.getHeroDetail(heroId)
+                data[0].title = data[0].npe_desc_loc
+                data[0].name = data[0].name_loc
+                data[0].story = data[0].bio_loc
+                data[0].resizeMode = true
+                const hero_name = uqName(heroDetail.name)
+                data[0].hero_name = hero_name
+                setHeroImage(`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/${hero_name}.png`)
+                setHeroDetail(...data)
+                setSkillInfo({
+                    ...data[0]?.abilities[0],
                     index: 0
                 })
             }
@@ -52,6 +73,12 @@ const HeroDetail = ({ route }) => {
         } catch (error) {
             console.log(error)
             setLoading(false)
+        }
+    }
+
+    const changeImage = (id) => {
+        if (gameId === 3) {
+            setHeroImage(`https://www.arenaofvalor.com/images/heroes/skin/${id}_big.jpg`)
         }
     }
 
@@ -69,7 +96,8 @@ const HeroDetail = ({ route }) => {
                         fadeAnimation={fadeAnimation}
                         isHeroDetail={isHeroDetail}
                         isHeroImage={isHeroImage}
-                        setHeroImage={setHeroImage}
+                        setHeroImage={changeImage}
+                        gameId={gameId}
                     />
                     <Tab
                         value={index}
@@ -117,10 +145,11 @@ const HeroDetail = ({ route }) => {
                             <MobaHeroStory story={isHeroDetail?.story} />
                         </TabView.Item>
                         <TabView.Item style={styles.tabView}>
-                            <MobaHeroStats isHeroDetail={isHeroDetail} />
+                            <MobaHeroStats gameId={gameId} isHeroDetail={isHeroDetail} />
                         </TabView.Item>
                         <TabView.Item style={[styles.tabView, { paddingHorizontal: 0 }]}>
                             <MobaHeroSkills
+                                gameId={gameId}
                                 isHeroDetail={isHeroDetail}
                                 isSkillInfo={isSkillInfo}
                                 setSkillInfo={setSkillInfo}

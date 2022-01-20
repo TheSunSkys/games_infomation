@@ -32,3 +32,22 @@ export const clientInstanceRovHero = axios.create(optionsRovHero);
 export const clientRov = {
     getHero: (id) => clientInstanceRovHero.get(`fcgi-bin/gift.fcgi?heroid=${id}&ticket=miniweb`),
 };
+
+// Dota 2
+const optionsDota2 = {
+    baseURL:
+        `https://api.opendota.com/api/`,
+};
+
+const optionsDota2Two = {
+    baseURL:
+        `https://www.dota2.com/`,
+};
+
+export const clientInstanceDota2 = axios.create(optionsDota2);
+export const clientInstanceDota2Two = axios.create(optionsDota2Two);
+
+export const clientDota2 = {
+    getHero: () => clientInstanceDota2.get(`heroStats`),
+    getHeroDetail: (id) => clientInstanceDota2Two.get(`datafeed/herodata?language=english&hero_id=${id}`)
+};

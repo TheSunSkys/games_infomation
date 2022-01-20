@@ -16,7 +16,7 @@ const GameScreen = () => {
     const [search, setSearch] = useState([])
     const [filteredDataSource, setFilteredDataSource] = useState([]);
     const [masterDataSource, setMasterDataSource] = useState([]);
-    const [viewGameList, setViewGameList] = useState(true);
+    const [viewGameList, setViewGameList] = useState(false);
 
     const getWindowWidth = () =>
         Math.round(Dimensions.get('window').width * 1000) / 1000 - 6;
@@ -53,8 +53,8 @@ const GameScreen = () => {
                 logo: require('@assets/image/dota2.png'),
                 title: 'Dota2',
                 type: 'moba',
-                story: '',
-                source: ''
+                story: 'The magical Dota 2 universe once had two otherworldly creatures at odds with each other. Their fights and quarrels caused great pain to the people living there, which is why the Primordials, even greater beings, decided to lock them up in a prison. This place was known as the ‘Mad Moon’. The two creatures decided to lay their differences to rest until they found a way out – which they soon did. Their escape caused the destruction of the Mad Moon and they soon fell to the planet below, bringing along all sorts of magical and fantastical fragments. Suddenly, the planet’s inhabitants had mana, protection, they could even attempt to resurrect others!                ',
+                source: 'https://bitspawn.gg/dota-2-lore-the-story-behind-the-game/'
             },
             {
                 id: 3,
