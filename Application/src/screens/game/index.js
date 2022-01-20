@@ -22,6 +22,7 @@ const GameScreen = () => {
         Math.round(Dimensions.get('window').width * 1000) / 1000 - 6;
 
     const searchFilter = (text) => {
+        console.log('text: ', text)
         if (text) {
             const newData = masterDataSource.filter(function (item) {
                 const itemData = item.title
@@ -130,7 +131,7 @@ const GameScreen = () => {
                     <SearchBar
                         round
                         searchIcon={{ size: 24 }}
-                        onSubmitEditing={(text) => searchFilter(text)}
+                        onChangeText={(text) => searchFilter(text)}
                         onClear={(text) => searchFilter('')}
                         placeholder="Type Here..."
                         value={search}
