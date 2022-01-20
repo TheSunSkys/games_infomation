@@ -106,7 +106,7 @@ const RegisterScreen = () => {
             )}
           />
         </View>
-        <View>
+        <View style={{ marginVertical: 5, }}>
           <Button
             title={'Confirm'}
             buttonStyle={[styles.buttonStyle, { backgroundColor: colors.BACKGROUND_COMPONENT }]}
@@ -135,7 +135,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     borderRadius: 10,
     paddingVertical: 10,
-    marginVertical: 5
   },
   headerStyle: {
     justifyContent: 'space-between',

@@ -98,16 +98,20 @@ const LoginScreen = () => {
           />
         </View>
         <View>
-          <Button
-            buttonStyle={[styles.buttonLogin, { backgroundColor: colors?.BACKGROUND_COMPONENT }]}
-            title={'Login'}
-            onPress={handleSubmit(onSubmit)}
-          />
-          <Button
-            buttonStyle={[styles.buttonLogin, { backgroundColor: colors?.BACKGROUND_COMPONENT }]}
-            title={'Register'}
-            onPress={() => navigation.navigate('RegisterScreen')}
-          />
+          <View style={{ marginVertical: 5, }}>
+            <Button
+              buttonStyle={[styles.buttonLogin, { backgroundColor: colors?.BACKGROUND_COMPONENT }]}
+              title={'Login'}
+              onPress={handleSubmit(onSubmit)}
+            />
+          </View>
+          <View style={{ marginVertical: 5, }}>
+            <Button
+              buttonStyle={[styles.buttonLogin, { backgroundColor: colors?.BACKGROUND_COMPONENT }]}
+              title={'Register'}
+              onPress={() => navigation.navigate('RegisterScreen')}
+            />
+          </View>
         </View>
       </View>
     </View>
@@ -134,7 +138,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   buttonLogin: {
-    marginVertical: 5,
     backgroundColor: 'black',
     borderRadius: 10,
     paddingVertical: 10
