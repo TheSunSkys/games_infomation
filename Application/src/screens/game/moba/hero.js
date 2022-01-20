@@ -59,6 +59,10 @@ const HeroDetail = ({ route }) => {
                 data[0].hero_name = hero_name
                 setHeroImage(`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/${hero_name}.png`)
                 setHeroDetail(...data)
+                setSkillInfo({
+                    ...data[0]?.abilities[0],
+                    index: 0
+                })
             }
             Animated.timing(fadeAnimation, {
                 toValue: 1,
@@ -145,6 +149,7 @@ const HeroDetail = ({ route }) => {
                         </TabView.Item>
                         <TabView.Item style={[styles.tabView, { paddingHorizontal: 0 }]}>
                             <MobaHeroSkills
+                                gameId={gameId}
                                 isHeroDetail={isHeroDetail}
                                 isSkillInfo={isSkillInfo}
                                 setSkillInfo={setSkillInfo}

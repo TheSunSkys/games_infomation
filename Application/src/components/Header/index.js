@@ -49,7 +49,7 @@ const Header = ({
 
 const styles = StyleSheet.create({
     headerStyle: {
-        height: hp('10%'),
+        height: hp('9%'),
         alignItems: 'center',
         width: '100%',
         flexDirection: 'row',

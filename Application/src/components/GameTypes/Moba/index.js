@@ -1,7 +1,7 @@
-import React, { useState } from "react"
-import { ScrollView, StyleSheet } from "react-native"
+import React, { useState, useCallback } from "react"
+import { ScrollView, StyleSheet, View } from "react-native"
 import { RecyclerListView, DataProvider, LayoutProvider } from "recyclerlistview";
-import { Tab, Text, TabView } from 'react-native-elements';
+import { Tab, Text, TabView, Button } from 'react-native-elements';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useTheme } from '@react-navigation/native';
 import { useNavigation } from "@react-navigation/native";
@@ -13,6 +13,14 @@ const MobaView = ({ allHero, gameName = "", gameId = 1, story = "", source = "" 
     const { colors } = useTheme()
     const navigation = useNavigation()
     const [index, setIndex] = useState(0);
+    const [numberLineStory, setNumberLineStory] = useState(10);
+    const [numberStory, setNumberStory] = useState(0);
+    const [showMore, setShowMore] = useState(false)
+
+    const onTextLayout = useCallback(e => {
+        setShowMore(e.nativeEvent.lines.length > numberLineStory);
+        setNumberStory(e.nativeEvent.lines.length)
+    }, [numberLineStory]);
 
     const dataProvider = new DataProvider((r1, r2) => {
         return r1 !== r2;
@@ -90,7 +98,23 @@ const MobaView = ({ allHero, gameName = "", gameId = 1, story = "", source = "" 
             >
                 <TabView.Item style={[styles.tabView, { paddingHorizontal: wp('5%'), }]}>
                     <ScrollView>
-                        <Text style={{ color: colors?.TEXT_STORY, fontSize: fontSize.sm }}>      {story}</Text>
+                        <Text
+                            numberOfLines={numberLineStory}
+                            onTextLayout={onTextLayout}
+                            style={{ color: colors?.TEXT_STORY, fontSize: fontSize.sm }}>      {story}</Text>
+                        {
+                            showMore && <View style={styles.viewBotton}>
+                                <Button
+                                    type="clear"
+                                    containerStyle={{ width: wp('30%') }}
+                                    titleStyle={[styles.textStory, { color: colors?.TEXT_TITLE }]}
+                                    onPress={() => {
+                                        setNumberLineStory(numberStory + 1)
+                                    }}
+                                    title={"More ..."}
+                                />
+                            </View>
+                        }
                     </ScrollView>
                 </TabView.Item>
                 <TabView.Item style={styles.tabView}>
@@ -114,6 +138,11 @@ const styles = StyleSheet.create({
         width: wp('100%'),
         height: hp('100%'),
         paddingBottom: hp('40%'),
+    },
+    viewBotton: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })
 
