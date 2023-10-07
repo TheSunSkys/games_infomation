@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mobile/l10n/l10n.dart';
+import 'package:mobile/setting/languages/cubit/language_cubit.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -8,16 +10,25 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Localizations Sample App',
-      locale: Locale('th', ''),
-      localizationsDelegates: [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => LanguageCubit()),
       ],
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      child: BlocBuilder<LanguageCubit, String>(
+        builder: (context, language) {
+          return MaterialApp(
+            title: 'Localizations Sample App',
+            locale: Locale(language, ''),
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: const MyHomePage(title: 'Flutter Demo Home Page'),
+          );
+        },
+      ),
     );
   }
 }
@@ -35,6 +46,13 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
+    final language = context.read<LanguageCubit>().state;
+    if (language.toLowerCase() == 'th') {
+      context.read<LanguageCubit>().change('en');
+    } else {
+      context.read<LanguageCubit>().change('th');
+    }
+
     setState(() {
       _counter++;
     });
